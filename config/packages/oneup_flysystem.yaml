@@ -1,0 +1,17 @@
+# Read the documentation: https://github.com/1up-lab/OneupFlysystemBundle/blob/release/3.x/Resources/doc/index.md
+oneup_flysystem:
+    cache:
+        psr6_app_cache:
+            psr6:
+                service: cache.flysystem.psr6
+    adapters:
+        uploads_adapter:
+            awss3v3:
+                client: Aws\S3\S3Client
+                bucket: "%env(AWS_S3_BUCKET_NAME)%"
+    filesystems:
+        uploads_filesystem:
+            adapter: uploads_adapter
+        cached_uploads_filesystem:
+            adapter: uploads_adapter
+            cache: psr6_app_cache
